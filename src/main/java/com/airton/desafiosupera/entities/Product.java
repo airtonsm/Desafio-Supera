@@ -1,7 +1,11 @@
 package com.airton.desafiosupera.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_product")
@@ -10,14 +14,14 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private BigDecimal price;
-
     private short score;
-
     private String image;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "id.product")
+    private Set<ShopcartProduct> items = new HashSet<>();
 
     public Product(){}
 
@@ -67,6 +71,14 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Set<ShopcartProduct> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<ShopcartProduct> items) {
+        this.items = items;
     }
 
     @Override

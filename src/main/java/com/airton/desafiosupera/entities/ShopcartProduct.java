@@ -1,33 +1,33 @@
 package com.airton.desafiosupera.entities;
 
-import com.airton.desafiosupera.entities.PK.OrderItemPK;
+import com.airton.desafiosupera.entities.PK.ShopcartProductPK;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name ="tb_order_item")
-public class OrderItem implements Serializable {
+@Table(name ="tb_shopcartProduct")
+public class ShopcartProduct implements Serializable {
 
     @EmbeddedId
-    private OrderItemPK id = new OrderItemPK(); //PK composed
+    private ShopcartProductPK id = new ShopcartProductPK(); //PK composed
 
     private Integer quantity;
 
-    public OrderItem(){}
+    public ShopcartProduct(){}
 
-    public OrderItem(Order order, Product product, Integer quantity) {
-        id.setOrder(order);
+    public ShopcartProduct(Shopcart shopcart, Product product, Integer quantity) {
+        id.setShopcart(shopcart);
         id.setProduct(product);
         this.quantity = quantity;
     }
 
-    public Order setOrder(){
-        return id.getOrder();
+    public Shopcart setOrder(){
+        return id.getShopcart();
     }
 
-    public void setOrder(Order order){
-        id.setOrder(order);
+    public void setOrder(Shopcart shopcart){
+        id.setShopcart(shopcart);
     }
 
     public Product getProduct(){
@@ -49,11 +49,11 @@ public class OrderItem implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof OrderItem)) return false;
+        if (!(o instanceof ShopcartProduct)) return false;
 
-        OrderItem orderItem = (OrderItem) o;
+        ShopcartProduct shopcartProduct = (ShopcartProduct) o;
 
-        return id != null ? id.equals(orderItem.id) : orderItem.id == null;
+        return id != null ? id.equals(shopcartProduct.id) : shopcartProduct.id == null;
     }
 
     @Override
